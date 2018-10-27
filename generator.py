@@ -17,5 +17,6 @@ importlib.reload(test_config)
 importlib.reload(obj_loader)
 
 
-obj_loader.load_obj(test_config.dynamic_classes,0)
+
+obj_loader.load_objs(test_config.dynamic_classes, load_bg=0, load_table=1, plane_set=0)
 # print(test_config)
