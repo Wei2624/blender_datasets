@@ -23,9 +23,10 @@ importlib.reload(setup_scene)
 random.seed(3)
 
 
-util.obj_selector('keyboard')
+# util.obj_selector('keyboard')
 # setup_scene.scene_setup(load_obj=1, load_bg=0, load_table=1, plane_set=0)
 # util.obj_remover(cfg.dynamic_classes)
 # util.obj_locator('table',0.5,0.5,1)
 # util.obj_resizer('keyboard',(1,1,1))
+util.lights_setup()
 

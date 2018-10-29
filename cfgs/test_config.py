@@ -28,6 +28,10 @@ v_div_unit = 0.03
 
 num_of_lights = 3
 randomize_xyz = False
+lamp_xy = [(1.3, -0.75),(-1.3, -0.75),(0, 1.5)]
+plane_scale = 20
+light_z_range = (1.8, 3)
+range_unit = 0.1
 
 
 

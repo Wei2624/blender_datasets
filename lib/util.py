@@ -66,12 +66,25 @@ def lights_setup():
 
 	index = 0
 	for obj in bpy.data.objects:
-		if 'Lamp' in obj.name and index in lights_idx:
-			if cfg.randomize_xyz:
-				# random all three coordinates
+		if 'Lamp' in obj.name:
+			if index in lights_idx:
+				obj.hide_render = False
+				if cfg.randomize_xyz:
+					# random all three coordinates
+					plane_scaler = random.randint(0,cfg.plane_scale)
+					abs_dist = plane_scale*cfg.range_unit
+					if cfg.lamp_xy[index][0] != 0 and cfg.lamp_xy[index][1] != 0:
+						obj.location[0] = cfg.lamp_xy[index][0] + np.sign(cfg.lamp_xy[index][0])*abs_dist
+						obj.location[1] = cfg.lamp_xy[index][1] + np.sign(cfg.lamp_xy[index][1])*abs_dist*abs(cfg.lamp_xy[index][1]/cfg.lamp_xy[index][0])
+					else:
+						if cfg.lamp_xy[index][0] == 0: 
+							obj.location[1] = cfg.lamp_xy[index][1] + np.sign(cfg.lamp_xy[index][1])*abs_dist
+						if cfg.lamp_xy[index][1] == 0: 
+							obj.location[0] = cfg.lamp_xy[index][0] + np.sign(cfg.lamp_xy[index][0])*abs_dist
+				scale = random.randint(0,int((cfg.light_z_range[1] - cfg.light_z_range[0])/cfg.range_unit))
+				obj.location[2] = cfg.light_z_range[0] + scale*cfg.range_unit
 			else:
-				# only random z direction
-				
+				obj.hide_render = True
 			index +=1
 
 
