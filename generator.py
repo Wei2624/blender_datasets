@@ -9,14 +9,23 @@ import random
 scipy_path = '/home/weizhang/anaconda2/envs/blender/lib/python3.5/site-packages/'
 sys.path.insert(0, scipy_path)
 import scipy.io
-from cfgs import test_config
+from cfgs import test_config as cfg
 from lib import obj_loader
+from lib import util
+from lib import setup_scene
 
 import importlib
 importlib.reload(test_config)
 importlib.reload(obj_loader)
+importlib.reload(util)
+importlib.reload(setup_scene)
+
+random.seed(3)
 
 
+util.obj_selector('keyboard')
+# setup_scene.scene_setup(load_obj=1, load_bg=0, load_table=1, plane_set=0)
+# util.obj_remover(cfg.dynamic_classes)
+# util.obj_locator('table',0.5,0.5,1)
+# util.obj_resizer('keyboard',(1,1,1))
 
-obj_loader.load_objs(test_config.dynamic_classes, load_bg=0, load_table=1, plane_set=0)
-# print(test_config)

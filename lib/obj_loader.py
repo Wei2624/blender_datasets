@@ -9,7 +9,10 @@ import random
 scipy_path = '/home/weizhang/anaconda2/envs/blender/lib/python3.5/site-packages/'
 sys.path.insert(0, scipy_path)
 import scipy.io
-from cfgs import test_config
+from cfgs import test_config as cfg
+from lib import util
+
+random.seed(3)
 
 
 def path_to_obj(obj_name):
@@ -32,14 +35,33 @@ def path_to_tex(tex_type):
 
 	return os.path.join(models_path,sub_folders[idx]) 
 
-def obj_importer(path,name):
+def coord_gen_obj():
+	coords = []
+	for i in range(cfg.area_div):
+		th = random.randint(0,int(cfg.h_bound/cfg.h_div_unit))
+		tv = random.randint(0,int(cfg.v_bound/cfg.v_div_unit))
+		print(th,tv)
+		h = cfg.h_div_unit*th
+		v = cfg.v_div_unit*tv
+		if i == 0: coords.append((h,v))
+		if i == 1: coords.append((-h,v))
+		if i == 2: coords.append((-h,-v))
+		if i == 3: coords.append((h,-v))
+	return coords
+
+
+def obj_importer(path,name, coord=None):
 	if  'obj' in path:
 		result = bpy.ops.import_scene.obj(filepath=path)
 	else: 
 		result = bpy.ops.wm.collada_import(filepath=path)
 
-	for o in bpy.context.selected_objects:
-		o.name = name
+	for obj in bpy.context.selected_objects:
+		obj.name = name
+		if coord != None:
+			obj.location = (coord[0],coord[1],cfg.table_height)
+			# print(obj.location)
+
 
 def tex_importer(path,obj_name):
 	img = bpy.data.images.load(path, check_existing=False)
@@ -47,18 +69,26 @@ def tex_importer(path,obj_name):
 	tex.image = img
 	bpy.data.objects[obj_name].active_material.active_texture = tex
 
-
-
-def load_objs(cate_list,load_bg,load_table, plane_set):
+def load_setup_objs(load_obj,load_bg,load_table, plane_set):
 	if load_table:
 		file_path = path_to_obj('table')  # change here to load particular table for testing
+		# file_path = '/home/weizhang/Documents/blender_datasets/3DModels/table/table2/model.obj'
 		obj_importer(file_path,'table')
+		util.dim_setter_single('table',cfg.table_dim)
 
-	# number_obj = random.randint(1, len(cate_list))  # might want to set up upper bound for table-top setup
-	# selected_obj_list = [cate_list[i] for i in list(np.random.choice(len(cate_list),number_obj))]
-	# for each in selected_obj_list:
-	# 	file_path = path_to_obj(each)
-	# 	obj_importer(file_path,each)
+	if load_obj:
+		number_obj = random.randint(1, cfg.table_top_num_obj)  # might want to set up upper bound for table-top setup
+		# number_obj = 1
+		selected_obj_list = [cfg.dynamic_classes[i] for i in list(np.random.choice(len(cfg.dynamic_classes),number_obj,replace=False))]
+		coord_idx = list(np.random.choice(cfg.table_top_num_obj,number_obj,replace=False))
+		coords = coord_gen_obj()
+		for key, each in enumerate(selected_obj_list):
+			file_path = path_to_obj(each)
+			# file_path = '/home/weizhang/Documents/blender_datasets/3DModels/book/book2/model.obj'
+			obj_importer(path=file_path,name=each)
+			print(coords[coord_idx[key]])
+			util.obj_locator(each,coords[coord_idx[key]][0],coords[coord_idx[key]][1],cfg.table_height)
+
 		
 	if load_bg: 
 		file_path = path_to_obj('background')

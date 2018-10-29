@@ -1,0 +1,57 @@
+# Blender MTL File: 'quit.blend'
+# Material Count: 5
+
+newmtl Sketchy_Brick_Multi
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd model/Sketchy_Brick_Multi.jpg
+
+newmtl Sketchy_Scales
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd model/Sketchy_Scales.jpg
+
+newmtl Sketchy_Siding_Straight
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd model/Sketchy_Siding_Straight.jpg
+
+newmtl __Sketchy_Lines_Wavy_Vertical_1
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd model/__Sketchy_Lines_Wavy_Vertical_1.jpg
+
+newmtl __Sketchy_Siding_Straight_1
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni -1.000000
+d 1.000000
+illum 2
+map_Kd model/__Sketchy_Siding_Straight_1.jpg

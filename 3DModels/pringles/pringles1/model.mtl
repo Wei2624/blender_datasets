@@ -1,0 +1,55 @@
+# Blender MTL File: 'quit.blend'
+# Material Count: 5
+
+newmtl Stone_Pavers_Flagstone_Gray.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd model/Stone_Pavers_Flagstone_Gray.jpg
+
+newmtl Translucent_Glass_Gray.008
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.968628 0.968628 0.968628
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.349020
+illum 2
+
+newmtl Translucent_Glass_Safety.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd model/Translucent_Glass_Safety.jpg
+
+newmtl __Translucent_Glass_Safety_1.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd model/__Translucent_Glass_Safety_1.jpg
+
+newmtl material.119
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
