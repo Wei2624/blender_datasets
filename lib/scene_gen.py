@@ -13,6 +13,17 @@ from cfgs import test_config as cfg
 from lib import obj_loader
 from lib import util
 
+random.seed(3)
+
+
+
 
 def scene_setup(load_obj,load_bg,load_table, plane_set):
 	obj_loader.load_setup_objs(load_obj=load_obj, load_bg=load_bg, load_table=load_table, plane_set=plane_set)
+
+
+def shuffle_scene(cate_list):
+
+
+
+def batch_generator(base_path,label_tmp_path, pahse):

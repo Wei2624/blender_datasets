@@ -56,10 +56,16 @@ def obj_importer(path,name, coord=None):
 	else: 
 		result = bpy.ops.wm.collada_import(filepath=path)
 
+	index = 0
 	for obj in bpy.context.selected_objects:
-		obj.name = name
-		if coord != None:
-			obj.location = (coord[0],coord[1],cfg.table_height)
+		obj.name = name+'_{:d}'.format(index)
+		for i in range(len(obj.material_slots)):
+			obj.active_material_index = i
+			obj.active_material.use_transparency = False
+			obj.active_material.alpha = cfg.obj_alpha
+		index +=1
+		# if coord != None:
+		# 	obj.location = (coord[0],coord[1],cfg.table_height)
 			# print(obj.location)
 
 
@@ -72,19 +78,19 @@ def tex_importer(path,obj_name):
 def load_setup_objs(load_obj,load_bg,load_table, plane_set):
 	if load_table:
 		file_path = path_to_obj('table')  # change here to load particular table for testing
-		# file_path = '/home/weizhang/Documents/blender_datasets/3DModels/table/table2/model.obj'
+		file_path = '/home/weizhang/Documents/blender_datasets/3DModels/table/table4/model.obj'
 		obj_importer(file_path,'table')
 		util.dim_setter_single('table',cfg.table_dim)
 
 	if load_obj:
 		number_obj = random.randint(1, cfg.table_top_num_obj)  # might want to set up upper bound for table-top setup
-		# number_obj = 1
+		number_obj = 1
 		selected_obj_list = [cfg.dynamic_classes[i] for i in list(np.random.choice(len(cfg.dynamic_classes),number_obj,replace=False))]
 		coord_idx = list(np.random.choice(cfg.table_top_num_obj,number_obj,replace=False))
 		coords = coord_gen_obj()
 		for key, each in enumerate(selected_obj_list):
 			file_path = path_to_obj(each)
-			# file_path = '/home/weizhang/Documents/blender_datasets/3DModels/book/book2/model.obj'
+			file_path = '/home/weizhang/Documents/blender_datasets/3DModels/book/book4/model.obj'
 			obj_importer(path=file_path,name=each)
 			print(coords[coord_idx[key]])
 			util.obj_locator(each,coords[coord_idx[key]][0],coords[coord_idx[key]][1],cfg.table_height)

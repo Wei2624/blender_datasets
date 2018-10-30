@@ -19,9 +19,9 @@ def obj_selector(cate_name):
 		if cate_name in obj.name:obj.select = True
 		else: obj.select = False
 
-def obj_remover(*args):
+def obj_remover(obj_list):
 	for obj in bpy.data.objects:
-		for name in args:
+		for name in obj_list:
 			if name in obj.name:
 				bpy.data.objects.remove(obj,True)
 				break
