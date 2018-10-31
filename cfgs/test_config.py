@@ -1,21 +1,21 @@
 no_need_to_copy = ['Camera','Lamp','Lamp.001','Lamp.002','skp_camera_Last_Saved_SketchUp_View','background'\
 				,'Plane','Plane.001','Plane.002']
 
-# static_classes = ['background','table']
-# static_classes_color = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0)]
+static_classes = ['background','table']
+static_classes_color = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0)]
 
-static_classes = ['table']
-static_classes_color = [(1.0, 0.0, 0.0)]
+# static_classes = ['table']
+# static_classes_color = [(1.0, 0.0, 0.0)]
 
 obj_alpha = 1.0
 
 
 # changing this can remove certain object from appearing in the scene
-# dynamic_classes = ['book', 'keyboard', 'mug', 'detergent', 'bottle', 'pringles']
-# dynamic_classes_color = [(0.0, 1.0, 0.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.5), (0.0, 0.0, 1.0),(1.0, 1.0, 0.0), (1.0, 0.0, 1.0)]
+dynamic_classes = ['book', 'keyboard', 'mug', 'detergent', 'bottle', 'pringles']
+dynamic_classes_color = [(0.0, 1.0, 0.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.5), (0.0, 0.0, 1.0),(1.0, 1.0, 0.0), (1.0, 0.0, 1.0)]
 
-dynamic_classes = ['pringles']
-dynamic_classes_color = [(0.0, 1.0, 1.0)]
+# dynamic_classes = ['pringles']
+# dynamic_classes_color = [(0.0, 1.0, 1.0)]
 
 table_height = 1.
 table_dim = (2., 1., 2.)
@@ -76,6 +76,16 @@ tex_idx_dict = {'table1_0':[0],\
 				'pringles1_2': [0],\
 				'pringles2_2': [0]
 				}
+
+
+
+normal_m = 0
+normal_s = 0.1
+
+background_range = (2, 3.5)
+
+
+change_scene_interval = 5
 
 
 
