@@ -10,6 +10,7 @@ scipy_path = '/home/weizhang/anaconda2/envs/blender/lib/python3.5/site-packages/
 sys.path.insert(0, scipy_path)
 import scipy.io
 from cfgs import test_config as cfg
+from lib import obj_loader
 
 random.seed(3)
 
@@ -86,6 +87,15 @@ def lights_setup():
 			else:
 				obj.hide_render = True
 			index +=1
+
+def plane_setup():
+	for obj in bpy.data.objects:
+		if 'Plane' in obj.name:
+			if obj.name == 'Plane':
+				file_path = obj_loader.path_to_tex('floor_tex')
+			else:
+				file_path = obj_loader.path_to_tex('wall_tex')
+			obj_loader.tex_importer(file_path,obj.name)
 
 
 

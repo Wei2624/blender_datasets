@@ -81,10 +81,12 @@ def tex_importer(path,obj_name, idx=0):
 	img = bpy.data.images.load(path, check_existing=False)
 	tex = bpy.data.textures.new(name=obj_name,type='IMAGE')
 	tex.image = img
+	print(tex)
+	print(obj_name)
 	bpy.data.objects[obj_name].active_material_index = idx
 	bpy.data.objects[obj_name].active_material.active_texture = tex
 
-def load_setup_objs(load_obj,load_bg,load_table, plane_set):
+def load_setup_objs(load_obj,load_bg,load_table, plane_set, num_obj_i):
 	selected_obj_list = None
 	if load_table:
 		file_path, idx = path_to_obj('table')  # change here to load particular table for testing
@@ -96,6 +98,7 @@ def load_setup_objs(load_obj,load_bg,load_table, plane_set):
 		global number_obj
 		number_obj = random.randint(1, cfg.table_top_num_obj)  # might want to set up upper bound for table-top setup
 		# number_obj = 1
+		num_obj = num_obj_
 		selected_obj_list = [cfg.dynamic_classes[i] for i in list(np.random.choice(len(cfg.dynamic_classes),number_obj,replace=False))]
 		coord_idx = list(np.random.choice(cfg.table_top_num_obj,number_obj,replace=False))
 		coords = coord_gen_obj()
@@ -113,12 +116,6 @@ def load_setup_objs(load_obj,load_bg,load_table, plane_set):
 		util.obj_locator('background',x,y,0)
 
 	if plane_set:
-		for obj in bpy.data.objects:
-			if 'Plane' in obj.name:
-				if obj.name == 'Plane':
-					file_path = path_to_tex('floor_tex')
-				else:
-					file_path = path_to_tex('wall_tex')
-				tex_importer(file_path,obj.name)
+		util.plane_setup()
 
 	return selected_obj_list

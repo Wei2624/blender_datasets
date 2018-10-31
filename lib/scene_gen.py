@@ -23,17 +23,31 @@ def scene_setup(load_obj,load_bg,load_table, plane_set):
 	return obj_loader.load_setup_objs(load_obj=load_obj, load_bg=load_bg, load_table=load_table, plane_set=plane_set)
 
 
-def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_rot, shuffle_size):
-	if shuffle_pos: 
-		coord_idx = list(np.random.choice(cfg.table_top_num_obj,obj_loader.number_obj,replace=False))
-		coords = obj_loader.coord_gen_obj()
+def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_rot, shuffle_size, shuffle_bg, table_tex):
+	if table_tex:
+		for obj in bpy.data.objects:
+			if 'table' in obj.name:
+				dict_key = obj.name.split('.')[0]
+				if dict_key in cfg.tex_idx_dict:
+					tex_path = obj_loader.path_to_tex('table_tex')		
+					for i in cfg.tex_idx_dict[dict_key]:
+						obj_loader.tex_importer(path=tex_path,obj_name=obj.name,idx=i)
+				if shuffle_color:
+					for i in range(len(obj.material_slots)):
+						obj.active_material_index = i
+						r = max(0, min(1.0, obj.active_material.diffuse_color[0] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+						g = max(0, min(1.0, obj.active_material.diffuse_color[1] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+						b = max(0, min(1.0, obj.active_material.diffuse_color[2] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+						obj.active_material.diffuse_color = (r,g,b)
 	for key, cate in enumerate(cate_list):
 		for obj in bpy.data.objects:
 			if cate in obj.name:
-				if shuffle_tex and obj.name in cfg.tex_idx_dict:
+				print('------------------------------------------')
+				dict_key = obj.name.split('.')[0]
+				if shuffle_tex and dict_key in cfg.tex_idx_dict:
 					tex_type = cate+'_tex'
-					tex_path = obj_loader.path_to_tex(tex_type)
-					for i in cfg.tex_idx_dict[obj.name]:
+					tex_path = obj_loader.path_to_tex(tex_type)		
+					for i in cfg.tex_idx_dict[dict_key]:
 						obj_loader.tex_importer(path=tex_path,obj_name=obj.name,idx=i)
 				if shuffle_color:
 					for i in range(len(obj.material_slots)):
@@ -43,12 +57,17 @@ def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_ro
 						b = max(0, min(1.0, obj.active_material.diffuse_color[2] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
 						obj.active_material.diffuse_color = (r,g,b)
 		if shuffle_pos:
+			coord_idx = list(np.random.choice(cfg.table_top_num_obj,obj_loader.number_obj,replace=False))
+			coords = obj_loader.coord_gen_obj()
 			util.obj_locator(cate,coords[coord_idx[key]][0],coords[coord_idx[key]][1],cfg.table_height)
 		if shuffle_rot:
 			util.obj_rotator(cate, 30)
 		if shuffle_size:
-			scale_ratio = max(0.8, min(1.2, 1 + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+			scale_ratio = max(0.5, min(1.5, 1 + np.random.normal(cfg.normal_m, 0.5, 1)))
 			util.obj_resizer(cate, scale_ratio)
+		if shuffle_bg:
+			x,y = obj_loader.background_pos_gen()
+			util.obj_locator('background',x,y,0)
 
 
 
@@ -158,5 +177,5 @@ def batch_generator(base_path,label_tmp_path, pahse):
 				obj.active_material = mat_copy[obj.name][i]
 
 
-	# scene_filepath = os.path.join(base_path, 'scene.obj')
-	# result = bpy.ops.export_scene.obj(filepath=scene_filepath)
+	scene_filepath = os.path.join(base_path, 'scene.obj')
+	result = bpy.ops.export_scene.obj(filepath=scene_filepath)

@@ -36,7 +36,7 @@ range_unit = 0.1
 
 tex_idx_dict = {'table1_0':[0],\
 				'book1_2': [0],\
-				'book2_3':[0],\
+				'book2_1':[0],\
 				'book3_3': [0],\
 				'book4_0': [0],\
 				'book5_0': [0,1,2,3,4],\
@@ -85,8 +85,7 @@ normal_s = 0.1
 background_range = (2, 3.5)
 
 
-change_scene_interval = 5
-
+change_scene_interval = 34
 
 
 
