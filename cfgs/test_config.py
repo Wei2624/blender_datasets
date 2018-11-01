@@ -17,16 +17,17 @@ dynamic_classes_color = [(0.0, 1.0, 0.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.5), (0.0
 # dynamic_classes = ['pringles']
 # dynamic_classes_color = [(0.0, 1.0, 1.0)]
 
+#table dimension parameters
 table_height = 1.
 table_dim = (2., 1., 2.)
 table_top_num_obj = 4
-
 area_div = 4
 v_bound = 0.75
 h_bound = 0.75
 h_div_unit = 0.03
 v_div_unit = 0.03
 
+#Lights parameters
 num_of_lights = 3
 randomize_xyz = False
 lamp_xy = [(1.3, -0.75),(-1.3, -0.75),(0, 1.5)]
@@ -34,6 +35,7 @@ plane_scale = 20
 light_z_range = (1.8, 3)
 range_unit = 0.1
 
+# texture information
 tex_idx_dict = {'table1_0':[0],\
 				'book1_2': [0],\
 				'book2_1':[0],\
@@ -55,6 +57,7 @@ tex_idx_dict = {'table1_0':[0],\
 				'detergent2_0': [0],\
 				'detergent3_4': [0],\
 				'detergent4_3': [0],\
+				'detergent4_5': [0],\
 				'detergent5_0': [0],\
 				'detergent6_7': [0],\
 				'table4_0':[2],\
@@ -73,19 +76,33 @@ tex_idx_dict = {'table1_0':[0],\
 				'mug6_2': [0],\
 				'mug7_0': [0],\
 				'table6_0':[0],\
+				'pringles1_1': [0],\
 				'pringles1_2': [0],\
 				'pringles2_2': [0]
 				}
 
 
-
+# Gaussian samples
 normal_m = 0
 normal_s = 0.1
 
+# position of background in range on x y
 background_range = (2, 3.5)
 
+# interval where script reloads a scene
+change_scene_interval = 4
 
-change_scene_interval = 34
+
+# camera parameters for keyframes
+degree_interval = 30
+num_degrees = 12
+cam_height_range = (1.3, 3.0)
+cam_xy_range = (1.2, 2.5)
+
+total_frames = 100
+
+target_point = (0,0,1.2)
+
 
 
 

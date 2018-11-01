@@ -20,7 +20,7 @@ def path_to_obj(obj_name):
 	models_path = os.path.join(current_file_path,'../3DModels/{:s}/'.format(obj_name))
 
 	sub_folders = os.listdir(models_path)
-	idx = random.randint(0,len(sub_folders)-1)
+	idx = np.random.randint(0,len(sub_folders))
 
 	return os.path.join(models_path,sub_folders[idx])+'/model.obj' if \
 			os.path.isfile(os.path.join(models_path,sub_folders[idx])+'/model.obj') else \
@@ -31,15 +31,15 @@ def path_to_tex(tex_type):
 	models_path = os.path.join(current_file_path,'../3DModels/{:s}/'.format(tex_type))
 
 	sub_folders = os.listdir(models_path)
-	idx = random.randint(0,len(sub_folders)-1)
+	idx = np.random.randint(0,len(sub_folders))
 
 	return os.path.join(models_path,sub_folders[idx]) 
 
 def coord_gen_obj():
 	coords = []
 	for i in range(cfg.area_div):
-		th = random.randint(0,int(cfg.h_bound/cfg.h_div_unit))
-		tv = random.randint(0,int(cfg.v_bound/cfg.v_div_unit))
+		th = np.random.randint(0,int(cfg.h_bound/cfg.h_div_unit)+1)
+		tv = np.random.randint(0,int(cfg.v_bound/cfg.v_div_unit)+1)
 		print(th,tv)
 		h = cfg.h_div_unit*th
 		v = cfg.v_div_unit*tv
@@ -69,9 +69,9 @@ def obj_importer(path,name,idx,coord=None):
 			# print(obj.location)
 
 def background_pos_gen():
-	scale = random.randint(0,int((cfg.background_range[1] - cfg.background_range[0])/cfg.range_unit))
+	scale = np.random.randint(0,int((cfg.background_range[1] - cfg.background_range[0])/cfg.range_unit)+1)
 	x = cfg.background_range[0] + scale*cfg.range_unit
-	scale = random.randint(0,int((cfg.background_range[1] - cfg.background_range[0])/cfg.range_unit))
+	scale = np.random.randint(0,int((cfg.background_range[1] - cfg.background_range[0])/cfg.range_unit)+1)
 	y = cfg.background_range[0] + scale*cfg.range_unit
 
 	return x,y
@@ -96,9 +96,9 @@ def load_setup_objs(load_obj,load_bg,load_table, plane_set, num_obj_i):
 
 	if load_obj:
 		global number_obj
-		number_obj = random.randint(1, cfg.table_top_num_obj)  # might want to set up upper bound for table-top setup
+		number_obj = np.random.randint(1, cfg.table_top_num_obj+1)  # might want to set up upper bound for table-top setup
 		# number_obj = 1
-		num_obj = num_obj_
+		# num_obj = num_obj_i
 		selected_obj_list = [cfg.dynamic_classes[i] for i in list(np.random.choice(len(cfg.dynamic_classes),number_obj,replace=False))]
 		coord_idx = list(np.random.choice(cfg.table_top_num_obj,number_obj,replace=False))
 		coords = coord_gen_obj()

@@ -62,7 +62,7 @@ def obj_resizer(cate_name,scale_ratio):
 
 
 def lights_setup():
-	num_of_lights_on = random.randint(1,cfg.num_of_lights)
+	num_of_lights_on = np.random.randint(1,cfg.num_of_lights+1)
 	lights_idx = list(np.random.choice(cfg.num_of_lights,num_of_lights_on,replace=False))
 
 	index = 0
@@ -72,7 +72,7 @@ def lights_setup():
 				obj.hide_render = False
 				if cfg.randomize_xyz:
 					# random all three coordinates
-					plane_scaler = random.randint(0,cfg.plane_scale)
+					plane_scaler = np.random.randint(0,cfg.plane_scale+1)
 					abs_dist = plane_scale*cfg.range_unit
 					if cfg.lamp_xy[index][0] != 0 and cfg.lamp_xy[index][1] != 0:
 						obj.location[0] = cfg.lamp_xy[index][0] + np.sign(cfg.lamp_xy[index][0])*abs_dist
@@ -82,7 +82,7 @@ def lights_setup():
 							obj.location[1] = cfg.lamp_xy[index][1] + np.sign(cfg.lamp_xy[index][1])*abs_dist
 						if cfg.lamp_xy[index][1] == 0: 
 							obj.location[0] = cfg.lamp_xy[index][0] + np.sign(cfg.lamp_xy[index][0])*abs_dist
-				scale = random.randint(0,int((cfg.light_z_range[1] - cfg.light_z_range[0])/cfg.range_unit))
+				scale = np.random.randint(0,int((cfg.light_z_range[1] - cfg.light_z_range[0])/cfg.range_unit)+1)
 				obj.location[2] = cfg.light_z_range[0] + scale*cfg.range_unit
 			else:
 				obj.hide_render = True

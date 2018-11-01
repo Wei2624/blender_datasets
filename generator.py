@@ -13,12 +13,14 @@ from cfgs import test_config as cfg
 from lib import obj_loader
 from lib import util
 from lib import scene_gen
+from lib import animation_setup
 
 import importlib
 importlib.reload(cfg)
 importlib.reload(obj_loader)
 importlib.reload(util)
 importlib.reload(scene_gen)
+importlib.reload(animation_setup)
 
 random.seed(3)
 
@@ -29,6 +31,7 @@ random.seed(3)
 # util.obj_locator('table',0.5,0.5,1)
 # util.obj_resizer('keyboard',(1,1,1))
 # util.lights_setup()
+# animation_setup.setup_keyframes()
 
 util.obj_remover(cfg.static_classes)
 util.obj_remover(cfg.dynamic_classes)
@@ -50,6 +53,8 @@ for i in range(start,end):
 
 
 	if i%cfg.change_scene_interval == 0:
+		animation_setup.setup_keyframes()
+
 		if num_obj_i > 4: num_obj_i = 1
 		util.obj_remover(cfg.static_classes)
 		util.obj_remover(cfg.dynamic_classes)
@@ -60,6 +65,7 @@ for i in range(start,end):
 		# print(selected_obj_list)
 
 		util.lights_setup()
+
 		scene_gen.batch_generator(base_path,label_tmp_path, 0)
 
 	elif i%cfg.change_scene_interval == 1:
