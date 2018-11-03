@@ -32,7 +32,7 @@ def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_ro
 				if dict_key in cfg.tex_idx_dict:
 					tex_path = obj_loader.path_to_tex('table_tex')		
 					for i in cfg.tex_idx_dict[dict_key]:
-						obj_loader.tex_importer(path=tex_path,obj_name=obj.name,idx=i)
+						obj_loader.tex_importer(path=tex_path,obj_name=dict_key,idx=i)
 				if shuffle_color:
 					for i in range(len(obj.material_slots)):
 						obj.active_material_index = i
@@ -49,7 +49,7 @@ def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_ro
 					tex_type = cate+'_tex'
 					tex_path = obj_loader.path_to_tex(tex_type)		
 					for i in cfg.tex_idx_dict[dict_key]:
-						obj_loader.tex_importer(path=tex_path,obj_name=obj.name,idx=i)
+						obj_loader.tex_importer(path=tex_path,obj_name=dict_key,idx=i)
 				if shuffle_color:
 					for i in range(len(obj.material_slots)):
 						obj.active_material_index = i
@@ -64,7 +64,7 @@ def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_ro
 		if shuffle_rot:
 			util.obj_rotator(cate, 30)
 		if shuffle_size:
-			scale_ratio = max(0.5, min(1.5, 1 + np.random.normal(cfg.normal_m, 0.5, 1)))
+			scale_ratio = max(1.1, min(2.5, 1.5 + np.random.normal(cfg.normal_m, 1, 1)))
 			util.obj_resizer(cate, scale_ratio)
 		if shuffle_bg:
 			x,y = obj_loader.background_pos_gen()

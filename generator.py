@@ -37,8 +37,10 @@ util.obj_remover(cfg.static_classes)
 util.obj_remover(cfg.dynamic_classes)
 
 
-start = 0
-end = 2
+start = 94
+end = 100
+
+
 
 selected_obj_list = []
 num_obj_i = 1
@@ -52,7 +54,7 @@ for i in range(start,end):
 		os.makedirs(label_tmp_path)
 
 
-	if i%cfg.change_scene_interval == 0:
+	if (i-start)%cfg.change_scene_interval == 0:
 		animation_setup.setup_keyframes()
 
 		if num_obj_i > 4: num_obj_i = 1
@@ -68,19 +70,19 @@ for i in range(start,end):
 
 		scene_gen.batch_generator(base_path,label_tmp_path, 0)
 
-	elif i%cfg.change_scene_interval == 1:
+	elif (i-start)%cfg.change_scene_interval == 1:
 		scene_gen.shuffle_scene(selected_obj_list, shuffle_tex=1, shuffle_color=0, \
 								shuffle_pos=0, shuffle_rot=0, shuffle_size=0, shuffle_bg=1, table_tex=1)
 		util.lights_setup()
 		util.plane_setup()
 		scene_gen.batch_generator(base_path,label_tmp_path, 0)
-	elif i%cfg.change_scene_interval == 2:
+	elif (i-start)%cfg.change_scene_interval == 2:
 		scene_gen.shuffle_scene(selected_obj_list, shuffle_tex=1, shuffle_color=0, \
 								shuffle_pos=1, shuffle_rot=0, shuffle_size=1, shuffle_bg=1, table_tex=1)
 		util.lights_setup()
 		util.plane_setup()
 		scene_gen.batch_generator(base_path,label_tmp_path, 0)
-	elif i%cfg.change_scene_interval == 3:
+	elif (i-start)%cfg.change_scene_interval == 3:
 		scene_gen.shuffle_scene(selected_obj_list, shuffle_tex=1, shuffle_color=1, \
 								shuffle_pos=1, shuffle_rot=1, shuffle_size=1, shuffle_bg=1, table_tex=1)
 		util.lights_setup()

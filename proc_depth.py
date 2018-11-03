@@ -5,9 +5,9 @@ import sys
 
 import matplotlib.pyplot as plt
 
-for i in range(100,115):
+for i in range(0,100):
 	print i
-	rgbd_path = '/home/weizhang/Documents/ycb_blender/output/'  + '{:04d}/'.format(i)
+	rgbd_path = '/home/weizhang/Documents/blender_datasets/output/dataset1/'  + '{:04d}/'.format(i)
 	for j in xrange(0,100):
 		filename_depth = os.path.join(rgbd_path,'{:04d}_depth.png'.format(j))
 		# os.rename(old_filename,new_filename)

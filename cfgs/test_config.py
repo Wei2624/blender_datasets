@@ -84,7 +84,7 @@ tex_idx_dict = {'table1_0':[0],\
 
 # Gaussian samples
 normal_m = 0
-normal_s = 0.1
+normal_s = 0.2
 
 # position of background in range on x y
 background_range = (2, 3.5)
