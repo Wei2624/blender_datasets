@@ -4,7 +4,7 @@ In this repo, I post the source code for generating 3D simulation data using Ble
 
 ## How To Run
 
-`generator.py' is the funciton to generate the data samples. To run it, you should have Blender open and run from there. 
+`generator.py` is the funciton to generate the data samples. To run it, you should have Blender open and run from there. 
 
 ## Preliminary Scene Setup
 
@@ -18,7 +18,7 @@ You should have a camera, five planes and three lights in the scene before you r
 
 ## Note
 
-`sample_generator.py' and `sample_generator_draft.py` are deprecated. 
+`sample_generator.py` and `sample_generator_draft.py` are deprecated. 
 
 
 I am still cleaning the code. 
