@@ -19,8 +19,9 @@ no_need_copy = ['Camera','Lamp','Lamp.001','Lamp.002','Lamp.003','skp_camera_Las
 				,'Plane','Plane.001','Plane.002','Plane.003','Plane.004']
 
 
-def scene_setup(load_obj,load_bg,load_table, plane_set,num_obj_i):
-	return obj_loader.load_setup_objs(load_obj=load_obj, load_bg=load_bg, load_table=load_table, plane_set=plane_set,num_obj_i=num_obj_i)
+def scene_setup(load_obj,load_bg,load_table, plane_set,num_obj_i,off_table_obj):
+	return obj_loader.load_setup_objs(load_obj=load_obj, load_bg=load_bg, load_table=load_table,\
+									 plane_set=plane_set,num_obj_i=num_obj_i, off_table_obj=off_table_obj)
 
 
 def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_rot, shuffle_size, shuffle_bg, table_tex):
