@@ -22,9 +22,11 @@ def path_to_obj(obj_name):
 	sub_folders = os.listdir(models_path)
 	idx = np.random.randint(0,len(sub_folders))
 
+	idx_t = int(sub_folders[idx].split(obj_name)[1]) -1
+
 	return os.path.join(models_path,sub_folders[idx])+'/model.obj' if \
 			os.path.isfile(os.path.join(models_path,sub_folders[idx])+'/model.obj') else \
-			os.path.join(models_path,sub_folders[idx])+'/model.dae', idx
+			os.path.join(models_path,sub_folders[idx])+'/model.dae', idx_t
 
 def path_to_tex(tex_type):
 	current_file_path = os.path.dirname(os.path.realpath(__file__))
@@ -40,7 +42,7 @@ def coord_gen_obj():
 	for i in range(cfg.area_div):
 		th = np.random.randint(0,int(cfg.h_bound/cfg.h_div_unit)+1)
 		tv = np.random.randint(0,int(cfg.v_bound/cfg.v_div_unit)+1)
-		print(th,tv)
+		# print(th,tv)
 		h = cfg.h_div_unit*th
 		v = cfg.v_div_unit*tv
 		if i == 0: coords.append((h,v))
@@ -86,33 +88,48 @@ def tex_importer(path,obj_name, idx=0):
 	bpy.data.objects[obj_name].active_material_index = idx
 	bpy.data.objects[obj_name].active_material.active_texture = tex
 
-def load_setup_objs(load_obj,load_bg,load_table, plane_set, num_obj_i, off_table_obj):
-	selected_obj_list = None
+def load_setup_objs(load_obj,load_bg,load_table, plane_set, off_table_obj):
+	selected_obj_list = []
+	offtable_obj_list = []
 	if load_table:
 		file_path, idx = path_to_obj('table')  # change here to load particular table for testing
 		# file_path = '/home/weizhang/Documents/blender_datasets/3DModels/cerealbox/cerealbox2/model.obj'
+		print('-----------------------table-------------------------')
+		print(file_path,idx)
 		obj_importer(path=file_path,name='table', idx=idx)
 		util.dim_setter_single('table',cfg.table_dim)
 
 	if load_obj:
 		global number_obj
 		number_obj = np.random.randint(1, cfg.table_top_num_obj+1)  # might want to set up upper bound for table-top setup
-		number_obj = 1
+		# number_obj = 1
 		# num_obj = num_obj_i
 		selected_obj_list = [cfg.dynamic_classes[i] for i in list(np.random.choice(len(cfg.dynamic_classes),number_obj,replace=False))]
 		coord_idx = list(np.random.choice(cfg.table_top_num_obj,number_obj,replace=False))
 		coords = coord_gen_obj()
 		for key, each in enumerate(selected_obj_list):
 			file_path, idx = path_to_obj(each)
-			file_path = '/home/weizhang/Documents/blender_datasets/3DModels/can/can6/model.obj'
+			print('-----------------------Object-------------------------')
 			print(file_path,idx)
-			idx = 5
+			# file_path = '/home/weizhang/Documents/blender_datasets/3DModels/mug/mug11/model.obj'
+			# print(file_path,idx)
+			# idx = 10
 			obj_importer(path=file_path,name=each, idx=idx)
 			util.obj_locator(each,coords[coord_idx[key]][0],coords[coord_idx[key]][1],cfg.table_height)
 
 
 	if off_table_obj:
-		off_table_obj_idx = np.random.randint(0,len(cdf.off_table_classes))
+		off_table_obj_idx = np.random.randint(0,len(cfg.off_table_classes))
+		file_path,idx = path_to_obj(cfg.off_table_classes[off_table_obj_idx])
+		offtable_obj_list.append(cfg.off_table_classes[off_table_obj_idx])
+		print('-----------------------Off Table-------------------------')
+		print(file_path, idx)
+		# selected_obj_list.append(cfg.off_table_classes[off_table_obj_idx])
+		obj_importer(path=file_path,name=cfg.off_table_classes[off_table_obj_idx], idx=idx)
+		x,y = background_pos_gen()
+
+		util.obj_locator(cfg.off_table_classes[off_table_obj_idx],x,y,0)
+
 		
 	if load_bg: 
 		file_path,idx = path_to_obj('background')
@@ -123,4 +140,4 @@ def load_setup_objs(load_obj,load_bg,load_table, plane_set, num_obj_i, off_table
 	if plane_set:
 		util.plane_setup()
 
-	return selected_obj_list
+	return selected_obj_list, offtable_obj_list

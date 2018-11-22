@@ -56,6 +56,7 @@ def setup_keyframes():
 	clear_all_keyframes_cam()
 
 	rot_degrees = np.random.randint(1, cfg.num_degrees+1)*cfg.degree_interval
+	rot_degrees = 360
 	# num_keyframes = 4
 	# if rot_degrees > 90:
 	# 	num_keyframes = int(rot_degrees/cfg.degree_interval)+1
@@ -85,7 +86,7 @@ def setup_keyframes():
 
 		xy = transform_cam_pos_2d((cam_pos[0],cam_pos[1]),theta)
 
-		cam_pos = (xy[0],xy[1],cam_pos[2])
+		cam_pos = (xy[0] + np.random.normal(0,0.05,1),xy[1]+ np.random.normal(0,0.05,1),cam_pos[2]+ np.random.normal(0,0.05,1))
 
 
 

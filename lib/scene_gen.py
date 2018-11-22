@@ -19,12 +19,13 @@ no_need_copy = ['Camera','Lamp','Lamp.001','Lamp.002','Lamp.003','skp_camera_Las
 				,'Plane','Plane.001','Plane.002','Plane.003','Plane.004']
 
 
-def scene_setup(load_obj,load_bg,load_table, plane_set,num_obj_i,off_table_obj):
+def scene_setup(load_obj,load_bg,load_table, plane_set,off_table_obj):
 	return obj_loader.load_setup_objs(load_obj=load_obj, load_bg=load_bg, load_table=load_table,\
-									 plane_set=plane_set,num_obj_i=num_obj_i, off_table_obj=off_table_obj)
+									 plane_set=plane_set, off_table_obj=off_table_obj)
 
 
-def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_rot, shuffle_size, shuffle_bg, table_tex):
+def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_rot, shuffle_size, \
+					shuffle_bg, table_tex, shuffle_offtable, off_table_list):
 	if table_tex:
 		for obj in bpy.data.objects:
 			if 'table' in obj.name:
@@ -65,11 +66,38 @@ def shuffle_scene(cate_list, shuffle_tex, shuffle_color, shuffle_pos, shuffle_ro
 		if shuffle_rot:
 			util.obj_rotator(cate, 30)
 		if shuffle_size:
-			scale_ratio = max(1.1, min(2.5, 1.5 + np.random.normal(cfg.normal_m, 1, 1)))
+			scale_ratio = max(0.8, min(2.0, 1.5 + np.random.normal(cfg.normal_m, 1, 1)))
 			util.obj_resizer(cate, scale_ratio)
-		if shuffle_bg:
-			x,y = obj_loader.background_pos_gen()
-			util.obj_locator('background',x,y,0)
+	if shuffle_bg:
+		x,y = obj_loader.background_pos_gen()
+		util.obj_locator('background',x,y,0)
+	if shuffle_offtable:
+		for key, cate in enumerate(off_table_list):
+			for obj in bpy.data.objects:
+				if cate in obj.name:
+					print('------------------------------------------')
+					dict_key = obj.name.split('.')[0]
+					if shuffle_tex and dict_key in cfg.tex_idx_dict:
+						tex_type = cate+'_tex'
+						tex_path = obj_loader.path_to_tex(tex_type)		
+						for i in cfg.tex_idx_dict[dict_key]:
+							obj_loader.tex_importer(path=tex_path,obj_name=dict_key,idx=i)
+					if shuffle_color:
+						for i in range(len(obj.material_slots)):
+							obj.active_material_index = i
+							r = max(0, min(1.0, obj.active_material.diffuse_color[0] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+							g = max(0, min(1.0, obj.active_material.diffuse_color[1] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+							b = max(0, min(1.0, obj.active_material.diffuse_color[2] + np.random.normal(cfg.normal_m, cfg.normal_s, 1)))
+							obj.active_material.diffuse_color = (r,g,b)
+			if shuffle_pos:
+				x,y = obj_loader.background_pos_gen()
+				util.obj_locator(cate,x,y,0)
+			if shuffle_rot:
+				util.obj_rotator(cate, 30)
+			if shuffle_size:
+				scale_ratio = max(1.1, min(2.5, 1.5 + np.random.normal(cfg.normal_m, 1, 1)))
+				util.obj_resizer(cate, scale_ratio)
+
 
 
 
@@ -85,6 +113,8 @@ def batch_generator(base_path,label_tmp_path, pahse):
 			mat_copy[obj.name] = mat_ls
 			for k,v in enumerate(cfg.static_classes):
 				if v in obj.name: mat_lbl_color[obj.name] = cfg.static_classes_color[k]
+			for k,v in enumerate(cfg.off_table_classes):
+				if v in obj.name: mat_lbl_color[obj.name] = cfg.off_table_classes_color[k]
 			for k,v in enumerate(cfg.dynamic_classes):
 				if not v == 'background':
 					if v in obj.name: mat_lbl_color[obj.name] = cfg.dynamic_classes_color[k]
